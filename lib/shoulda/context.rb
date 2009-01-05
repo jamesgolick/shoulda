@@ -207,7 +207,9 @@ module Thoughtbot # :nodoc:
     end
 
     def uses(name, *args)
-      context(name, &proc { Thoughtbot::Shoulda.shared_contexts[name].bind(self).call(*args) })
+      context(name) do
+        Thoughtbot::Shoulda.shared_contexts[name].bind(self).call(*args)
+      end
     end
 
     class Context # :nodoc:
