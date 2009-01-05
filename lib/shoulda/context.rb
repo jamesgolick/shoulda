@@ -19,6 +19,10 @@ module Thoughtbot # :nodoc:
       def remove_context # :nodoc:
         self.contexts.pop
       end
+
+      def shared_contexts
+        @shared_contexts ||= {}
+      end
     end
 
     # == Should statements
@@ -171,6 +175,14 @@ module Thoughtbot # :nodoc:
         context = Thoughtbot::Shoulda::Context.new(name, self, &blk)
         context.build
       end
+    end
+
+    def shared(name, &blk)
+      Thoughtbot::Shoulda.shared_contexts[name] = blk
+    end
+
+    def uses(name)
+      context(name, &Thoughtbot::Shoulda.shared_contexts[name])
     end
 
     class Context # :nodoc:
