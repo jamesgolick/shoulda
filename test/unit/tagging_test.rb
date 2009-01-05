@@ -19,4 +19,12 @@ class TaggingTest < Test::Unit::TestCase
   should "have a test called 'test: tag awesomness should do stuff. '" do
     assert self.class.instance_methods.include?("test: tag awesomeness should do stuff. "), self.class.instance_methods.grep(/test:/).inspect
   end
+
+  shared "with parameters" do |param|
+    should "get the parameters" do
+      assert_equal :params_yay, param
+    end
+  end
+
+  uses "with parameters", :params_yay
 end
