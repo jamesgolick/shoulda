@@ -177,6 +177,31 @@ module Thoughtbot # :nodoc:
       end
     end
 
+    # == Shared contexts
+    #
+    # Shared contexts work a lot like regular shoulda macros, but with a bit of syntactic sugar.
+    #
+    # Define a shared context the same way that you'd define a regular context:
+    #   
+    #   shared "my shared context" do
+    #     setup do
+    #       # this setup block will work just like any other setup block in a context
+    #     end
+    #
+    #     should "do stuff" do
+    #       assert true
+    #     end
+    #   end
+    #
+    # Then, you can pull that context in to any other by calling:
+    #   
+    #   uses "my shared context"
+    #
+    # Current limitations:
+    #   
+    #   - Won't pull in surrounding context if declared inside of another context.
+    #
+
     def shared(name, &blk)
       Thoughtbot::Shoulda.shared_contexts[name] = blk
     end
