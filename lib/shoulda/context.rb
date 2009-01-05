@@ -206,7 +206,12 @@ module Thoughtbot # :nodoc:
       Thoughtbot::Shoulda.shared_contexts[name] = blk
     end
 
+    class MissingSharedContext < ArgumentError; end
     def uses(name, *args)
+      unless Thoughtbot::Shoulda.shared_contexts.has_key?(name)
+        raise MissingSharedContext, "There's no shared behaviour called #{name}"
+      end
+
       context(name) do
         Thoughtbot::Shoulda.shared_contexts[name].bind(self).call(*args)
       end

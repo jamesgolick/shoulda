@@ -27,4 +27,10 @@ class TaggingTest < Test::Unit::TestCase
   end
 
   uses "with parameters", :params_yay
+
+  should "raise Thoughtbot::Shoulda::MissingSharedContext if it doesn't exist" do
+    assert_raise(Thoughtbot::Shoulda::MissingSharedContext) {
+      self.class.uses "a non existent context"
+    }
+  end
 end
