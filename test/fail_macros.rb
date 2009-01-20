@@ -16,11 +16,10 @@ class Test::Unit::TestCase
     def should_fail(&block)
       context "should fail when trying to run:" do
         Shoulda.expected_exceptions = [Test::Unit::AssertionFailedError]
-        yield block
+        instance_eval(&block)
         Shoulda.expected_exceptions = nil
       end
     end
-  end
   
     # alias_method_chain hack to allow the should_fail macro to work
     def should_with_failure_scenario(name, &block)
@@ -31,6 +30,6 @@ class Test::Unit::TestCase
       should_without_failure_scenario(name, &(failure_block || block))
     end
     
-    alias_method :should, :should_with_failure_scenario
-
+    alias_method_chain :should, :failure_scenario
+  end
 end
