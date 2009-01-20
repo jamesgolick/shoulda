@@ -2,7 +2,9 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'rubygems'
+require 'activesupport' if defined? RAILS_ROOT
 require 'test/unit'
+require 'active_support/test_case' if defined? RAILS_ROOT
 require 'context'
 
 module Shoulda
